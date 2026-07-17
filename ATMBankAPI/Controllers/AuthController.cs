@@ -9,19 +9,20 @@ namespace ATMBankAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _authRepository;
-        public AuthController(IAuthRepository authRepository)
+        private readonly IAuthServices _authService;
+        public AuthController(IAuthServices authServices)
         {
-            _authRepository = authRepository;
+            _authService = authServices;
         }
 
         [HttpPost("Login")]
 
         public async Task<IActionResult>Login(LoginRequestDto dto)
         {
-            var user=await _authRepository.Login(dto);
+            var response=await _authService.Login(dto); 
 
-            if(user == null)
+
+            if(response == null)
             {
                 return Unauthorized(new
                 {
@@ -29,13 +30,7 @@ namespace ATMBankAPI.Controllers
                 });
             }
 
-            return Ok(new
-            {
-                Message = "Login Successfull",
-                UserId=user.UserId,
-                UserName=user.UserName,
-                Role=user.Role.RoleName
-            });
+            return Ok(response);
         }
     }
 }
