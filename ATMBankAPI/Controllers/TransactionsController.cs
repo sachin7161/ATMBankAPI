@@ -36,5 +36,12 @@ namespace ATMBankAPI.Controllers
             var result=await _transactionService.GetBalance(accountnumber);
             return Ok( result);
         }
+
+        [HttpPost("MiniStatement{accountnumber}")]
+        public async Task<IActionResult>GetMiniStatement(long accountnumber)
+        {
+            var result =await _transactionService.GetMiniStatement(accountnumber);
+            return Ok(result);
+        }
     }
 }

@@ -66,6 +66,32 @@ namespace ATMBankAPI.Repository
             };
         }
 
+        public async Task<List<MiniStatementDto>> GetMiniStatement(long accountnumber)
+        {
+            var account = await _context.Accounts
+         .FirstOrDefaultAsync(a => a.AccountNumber == accountnumber);
+
+            if (account == null)
+            {
+                throw new Exception("Account not found.");
+            }
+
+            var transactions = await _context.Transactions
+                .Where(t => t.AccountId == account.AccountId)
+                .OrderByDescending(t => t.TransactionDate)
+                .Take(10)
+                .Select(t => new MiniStatementDto
+                {
+                    TransactionType = t.TransactionType ?? "",
+                    Amount = t.Amount ?? 0,
+                    Description = t.Description ?? "",
+                    TransactionDate = t.TransactionDate ?? DateTime.Now
+                })
+                .ToListAsync();
+
+            return transactions;
+        }
+
         public async Task<WithdrawResponseDto> Withdraw(WithdrawDto dto)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.AccountNumber);
