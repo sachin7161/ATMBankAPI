@@ -21,5 +21,20 @@ namespace ATMBankAPI.Controllers
             var result=await _transactionService.Deposit(dto);
              return Ok(result);
         }
+
+        [HttpPost("Withdraw")]
+        public async Task<IActionResult>Withdraw(WithdrawDto dto)
+        {
+            var result=await _transactionService.Withdraw(dto);
+            return Ok( result);
+        }
+
+        [HttpGet("Balance{accountnumber}")]
+
+        public async Task<IActionResult>GetBalance(long accountnumber)
+        {
+            var result=await _transactionService.GetBalance(accountnumber);
+            return Ok( result);
+        }
     }
 }
