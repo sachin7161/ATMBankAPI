@@ -46,6 +46,86 @@ namespace ATMBankAPI.Repository
             };
         }
 
+        public async Task<FundTransferResponseDto> FundTransfer(FundTransferDto dto)
+        {
+            using var dbTransaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var sender = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.FromAccountNumber);
+
+                if (sender == null)
+                {
+                    throw new Exception("Sender Account Not Found");
+                }
+
+                var receiver = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.ToAccountNumber);
+                if (receiver == null)
+                {
+                    throw new Exception("receiver Account Not Found ");
+                }
+
+                if (sender.AccountId == receiver.AccountId)
+                {
+                    throw new Exception("Sender and Receiver account cannot be same.");
+                }
+
+                decimal senderBalance = sender.Balance ?? 0;
+
+                if (senderBalance < dto.Amount)
+                {
+                    throw new Exception("Insufficent Balance");
+                }
+
+                sender.Balance = senderBalance-dto.Amount;
+                receiver.Balance = (receiver.Balance ?? 0) + dto.Amount;
+
+                string referenceNumber = "TRF" + DateTime.Now.ToString("yyMMddHHmmss");
+
+                Transaction senderTransaction = new Transaction
+                {
+                 AccountId = sender.AccountId,
+                 TransactionType="Fund Transfer Debit",
+                 Amount=dto.Amount,
+                 Description=dto.Description,
+                 ReferenceNumber=referenceNumber,
+                 TransactionDate=DateTime.Now,
+
+                };
+
+                Transaction reciverTransaction = new Transaction
+                {
+                    AccountId = sender.AccountId,
+                    TransactionType = "Fund Trnsafer  Credit",
+                    Amount = dto.Amount,
+                    Description = dto.Description,
+                    ReferenceNumber = referenceNumber,
+                    TransactionDate = DateTime.Now,
+
+                };
+                _context.Transactions.Add(senderTransaction);
+                _context.Transactions.Add(reciverTransaction);
+
+                await _context.SaveChangesAsync();
+                await dbTransaction.CommitAsync();
+                FundTransferResponseDto FTD = new FundTransferResponseDto
+                {
+                    Message="Fund Transfer Successfully",
+                    ReferanceNumber=referenceNumber,
+                    FromAccountNumber=sender.AccountNumber,
+                    ToAccountNumber=receiver.AccountNumber,
+                    Amount=dto.Amount,
+                    RemainingBalance=sender.Balance??0
+                };
+                return FTD;
+            }
+            catch(Exception )
+            {
+                await dbTransaction.RollbackAsync();
+                throw;
+            }
+          
+        }
+
         public async Task<BalanceInquiryDto> GetBalance(long accountnumber)
         {
             var account = await _context.Accounts.Include(a => a.Customer).Include(a => a.Branch).FirstOrDefaultAsync(a => a.AccountNumber == accountnumber);

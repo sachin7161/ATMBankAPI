@@ -43,5 +43,13 @@ namespace ATMBankAPI.Controllers
             var result =await _transactionService.GetMiniStatement(accountnumber);
             return Ok(result);
         }
+
+        [HttpPost("FundTrnsfer")]
+
+        public async Task<IActionResult> FundTransfer(FundTransferDto dto)
+        {
+            var result=await _transactionService.FundTransfer(dto);
+            return Ok(result);
+        }
     }
 }
