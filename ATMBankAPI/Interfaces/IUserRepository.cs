@@ -5,7 +5,7 @@ namespace ATMBankAPI.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User>CreateUser(CreateUserDto userDto);
+        Task<User>CreateUser(UserDto userDto);
         Task<bool> IUserNameExists(string username);
     }
 }

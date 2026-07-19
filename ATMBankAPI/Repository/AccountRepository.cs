@@ -13,7 +13,7 @@ namespace ATMBankAPI.Repository
             _context = context;
         }
 
-        public async Task<AccountResponseDto> CreateAccount(CreateAccountDto dto)
+        public async Task<AccountResponseDto> CreateAccount(AccountDto dto)
         {
             //Genrated Account Number
 

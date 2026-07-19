@@ -19,7 +19,7 @@ namespace ATMBankAPI.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult>CreateAccount(CreateAccountDto dto)
+        public async Task<IActionResult>CreateAccount(AccountDto dto)
         {
             var result= await _accountserrvice.CreateAccount(dto);
             return Ok(result);

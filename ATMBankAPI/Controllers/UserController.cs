@@ -17,7 +17,7 @@ namespace ATMBankAPI.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> CreateUser(CreateUserDto dto)
+        public async Task<IActionResult> CreateUser(UserDto dto)
         {
             if(await _userRepository.IUserNameExists(dto.UserName))
             {

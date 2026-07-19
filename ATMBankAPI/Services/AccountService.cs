@@ -10,7 +10,7 @@ namespace ATMBankAPI.Services
         {
             _accountreposittory = accountRepository;
         }
-        public async Task<AccountResponseDto> CreateAccount(CreateAccountDto dto)
+        public async Task<AccountResponseDto> CreateAccount(AccountDto dto)
         {
             return await _accountreposittory.CreateAccount(dto);
         }

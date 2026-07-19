@@ -13,7 +13,7 @@ namespace ATMBankAPI.Repository
         {
             _context = context;
         }
-        public async Task<User> CreateUser(CreateUserDto userDto)
+        public async Task<User> CreateUser(UserDto userDto)
         {
             User user = new User();
             user.UserName = userDto.UserName;

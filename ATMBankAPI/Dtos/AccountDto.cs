@@ -2,7 +2,7 @@
 
 namespace ATMBankAPI.Dtos
 {
-    public class CreateAccountDto
+    public class AccountDto
     {
         [Required]
         public int CustomerId { get; set; }
