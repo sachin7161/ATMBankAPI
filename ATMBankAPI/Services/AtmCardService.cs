@@ -15,5 +15,10 @@ namespace ATMBankAPI.Services
         {
             return  await _atmcardrepository.CreateAtmCard(atmCardDto);
         }
+
+        public async Task<GetAtmCardDto> GetAtmCard(long accountNumber)
+        {
+           return await _atmcardrepository.GetAtmCard(accountNumber);
+        }
     }
 }

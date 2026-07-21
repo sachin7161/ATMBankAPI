@@ -64,5 +64,27 @@ namespace ATMBankAPI.Repository
             };
             return  atmCardResponse;
         }
+
+        public async Task<GetAtmCardDto> GetAtmCard(long accountnumber)
+        {
+            var card = await _context.AtmCards.Include(a => a.Account).ThenInclude(a => a.Customer)
+                .FirstOrDefaultAsync(a => a.Account.AccountNumber == accountnumber);
+            if(card == null)
+            {
+                throw new Exception("Atm Card Not Found");
+            }
+            GetAtmCardDto atm = new GetAtmCardDto()
+            {
+                CardNumber = card.CardNumber ?? 0,
+                AccountNumber = card.Account.AccountNumber,
+                CustomerName = card.Account.Customer.FirstName + "" + card.Account.Customer.LastName,
+                ExpirayDate = card.ExpiryDate ?? DateOnly.MinValue,
+                DailyLimit = card.DailyLimit ?? 0,
+                CardStatus = card.CardStatus
+            };
+            return atm;
+
+
+        }
     }
 }

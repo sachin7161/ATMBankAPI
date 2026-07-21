@@ -24,5 +24,7 @@ namespace ATMBankAPI.Controllers
             var result= await _accountserrvice.CreateAccount(dto);
             return Ok(result);
         }
+
+        
     }
 }
