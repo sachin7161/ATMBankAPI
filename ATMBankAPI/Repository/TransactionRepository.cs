@@ -53,9 +53,19 @@ namespace ATMBankAPI.Repository
             {
                 var sender = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.FromAccountNumber);
 
+
                 if (sender == null)
                 {
                     throw new Exception("Sender Account Not Found");
+                }
+                var card = await _context.AtmCards.FirstOrDefaultAsync(e => e.AccountId == sender.AccountId);
+                if (card == null)
+                {
+                    throw new Exception("Atm Card Not Found");
+                }
+                if (card.CardStatus != "Active")
+                {
+                    throw new Exception("ATM Card is blocked. Transaction not allowed.");
                 }
 
                 var receiver = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.ToAccountNumber);
@@ -75,6 +85,8 @@ namespace ATMBankAPI.Repository
                 {
                     throw new Exception("Insufficent Balance");
                 }
+
+                
 
                 sender.Balance = senderBalance-dto.Amount;
                 receiver.Balance = (receiver.Balance ?? 0) + dto.Amount;
@@ -175,6 +187,15 @@ namespace ATMBankAPI.Repository
         public async Task<WithdrawResponseDto> Withdraw(WithdrawDto dto)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.AccountNumber);
+            var card = await _context.AtmCards.FirstOrDefaultAsync(a => a.AccountId == account.AccountId);
+            if (card == null)
+            {
+                throw new Exception("Atm Card Not Found");
+            }
+            if (card.CardStatus != "Active")
+            {
+                throw new Exception("ATM Card is blocked. Transaction not allowed.");
+            }
 
             if (account == null)
             {
@@ -187,6 +208,8 @@ namespace ATMBankAPI.Repository
             {
                 throw new Exception("Insufficent Balance");
             }
+
+           
 
             account.Balance = PreviousBalance - dto.Amount;
 

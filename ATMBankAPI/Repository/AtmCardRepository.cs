@@ -14,6 +14,29 @@ namespace ATMBankAPI.Repository
             _context = context;
         }
 
+        public async Task<CardResponseDto> BlockCard(CardStatusDto dto)
+        {
+            var card = await _context.AtmCards.Include(a => a.Account).FirstOrDefaultAsync(a => a.Account.AccountNumber == dto.AccountNumber);
+            if (card == null)
+            {
+                throw new Exception("Atm Card Not Found");
+            }
+
+            if (card.CardStatus == "Blocked")
+            {
+                throw new Exception("Alerady Card Blocked");
+            }
+            card.CardStatus = "Blocked";
+            await _context.SaveChangesAsync();
+                
+            CardResponseDto cre=new CardResponseDto() 
+            { 
+                message="Atm Card Blocked Successfull"
+            };
+            return cre;
+
+        }
+
         public async Task<ChangePinResponseDto> ChangePin(ChangePinDto dto)
         {
             var card = await _context.AtmCards.Include(a => a.Account).FirstOrDefaultAsync(a => a.Account.AccountNumber == dto.AccountNumber);
@@ -116,6 +139,29 @@ namespace ATMBankAPI.Repository
             return atm;
 
 
+        }
+
+        public async Task<CardResponseDto> UnBlock(CardStatusDto dto)
+        {
+           var card=await _context.AtmCards.Include(e=>e.Account).FirstOrDefaultAsync(e=>e.Account.AccountNumber == dto.AccountNumber);
+
+            if( card == null)
+            {
+                throw new Exception("Card Not Found");
+            }
+            if (card.CardStatus == "Active")
+            {
+                throw new Exception("Card Already Exist");
+            }
+
+            card.CardStatus = "Active";
+            await _context.SaveChangesAsync();
+
+            CardResponseDto res=new CardResponseDto()
+            { 
+                message="Atm Card UnBlock Successfully"
+            };
+            return res;
         }
     }
 }
