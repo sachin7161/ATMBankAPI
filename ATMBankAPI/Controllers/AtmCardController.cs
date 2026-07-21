@@ -2,6 +2,7 @@
 using ATMBankAPI.Interfaces;
 using ATMBankAPI.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ATMBankAPI.Controllers
@@ -27,6 +28,12 @@ namespace ATMBankAPI.Controllers
         public async Task<IActionResult> GetAtmCard(long accountnumber)
         {
             var result = await _atmservice.GetAtmCard(accountnumber);
+            return Ok(result);
+        }
+        [HttpPost("ChangeAtmPin")]
+        public async Task<IActionResult>ChangeAtmPin(ChangePinDto dto)
+        {
+            var result = await _atmservice.ChangePin(dto);
             return Ok(result);
         }
     }

@@ -11,6 +11,13 @@ namespace ATMBankAPI.Services
             _atmcardrepository = atmcardrepository;
         }
 
+        
+
+        public async Task<ChangePinResponseDto> ChangePin(ChangePinDto dto)
+        {
+           return await _atmcardrepository.ChangePin(dto);  
+        }
+
         public async Task<AtmCardResponseDto> CreateAtmCard(AtmCardDto atmCardDto)
         {
             return  await _atmcardrepository.CreateAtmCard(atmCardDto);

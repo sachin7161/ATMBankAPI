@@ -14,6 +14,37 @@ namespace ATMBankAPI.Repository
             _context = context;
         }
 
+        public async Task<ChangePinResponseDto> ChangePin(ChangePinDto dto)
+        {
+            var card = await _context.AtmCards.Include(a => a.Account).FirstOrDefaultAsync(a => a.Account.AccountNumber == dto.AccountNumber);
+            if (card == null)
+            {
+                throw new Exception("Atm Card Not Found");
+            }
+            bool isPinValid = Helpers.PasswordHelper.VerifyPin(dto.OldPin, card.PinHash);
+            if(!isPinValid)
+            {
+                throw new Exception("Old pin is Incorrect");
+            }
+            if (dto.OldPin == dto.NewPin)
+            {
+                throw new Exception("New PIN cannot be the same as Old PIN.");
+
+            }
+
+            card.PinHash = Helpers.PasswordHelper.NewHashPin(dto.NewPin);
+
+            await _context.SaveChangesAsync();
+
+            ChangePinResponseDto res = new ChangePinResponseDto()
+            {
+                Meassage = "Atm Pin change Successfully"
+            };
+           
+            return res;
+
+        }
+
         public async Task<AtmCardResponseDto> CreateAtmCard(AtmCardDto atm)
         {
            var account=await _context.Accounts.FirstOrDefaultAsync(e=>e.AccountNumber==atm.AccountNumber);
@@ -37,7 +68,7 @@ namespace ATMBankAPI.Repository
 
             string cvv=random.Next( 100,999).ToString();
 
-            string pinHash=BCrypt.Net.BCrypt.HashPassword(atm.Pin);
+            string pinHash = Helpers.PasswordHelper.HashPin(atm.Pin);
 
             AtmCard atmCard = new AtmCard
             {

@@ -13,5 +13,20 @@ namespace ATMBankAPI.Helpers
         {
             return BCrypt.Net.BCrypt.Verify(password, HashPassword);
         }
+
+        public static string HashPin(string pin)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(pin);
+        }
+        public static bool VerifyPin(string pin,string HashPin)
+        {
+            return BCrypt.Net.BCrypt.Verify(pin, HashPin);
+        }
+
+        public static string NewHashPin(string pin)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(pin);
+        }
+       
     }
 }

@@ -6,6 +6,6 @@ namespace ATMBankAPI.Interfaces
     {
         Task<AtmCardResponseDto> CreateAtmCard(AtmCardDto atm);
         Task<GetAtmCardDto> GetAtmCard(long accountnumber);
-        
+        Task<ChangePinResponseDto> ChangePin(ChangePinDto dto);
     }
 }
