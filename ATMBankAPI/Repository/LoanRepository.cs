@@ -53,5 +53,28 @@ namespace ATMBankAPI.Repository
             };
             return dto2;
         }
+
+        public async Task<GetLoanDto> GetLoan(int loanId)
+        {
+            var loan = await _contex.Loans.Include(e => e.Customer).Include(e => e.LoanTypeNavigation).FirstOrDefaultAsync(e => e.LoanId == loanId);
+            if(loan == null)
+            {
+                throw new Exception("Loan not Found");
+            }
+
+            GetLoanDto londto = new GetLoanDto
+            {
+                LoanId = loanId,
+                CustomerName = loan.Customer.FirstName + " " + loan.Customer.LastName,
+                LoanType = loan.LoanTypeNavigation.LoneTypeName,
+                LoanAmount = loan.LoanAmount ?? 0,
+                Emi = loan.Emi ?? 0,
+                DurationMonth = loan.DurationMonths ?? 0,
+                LoanStatus = loan.LoanStatus,
+                ApplyDate = loan.ApplyDate ?? DateTime.MinValue,
+
+            };
+            return londto;
+        }
     }
 }

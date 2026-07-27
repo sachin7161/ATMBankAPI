@@ -14,5 +14,10 @@ namespace ATMBankAPI.Services
         {
             return await _loanRepository.ApplyLoan(dto);
         }
+
+        public Task<GetLoanDto> GetLoan(int loanId)
+        {
+           return _loanRepository.GetLoan(loanId);
+        }
     }
 }

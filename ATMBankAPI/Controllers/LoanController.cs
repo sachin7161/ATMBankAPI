@@ -24,5 +24,11 @@ namespace ATMBankAPI.Controllers
             return Ok(result);
 
         }
+        [HttpGet("{LoanId}")]
+        public async Task<IActionResult>GetLoan(int LoanId)
+        {
+            var result=await loanService.GetLoan(LoanId);
+            return Ok(result);
+        }
     }
 }
