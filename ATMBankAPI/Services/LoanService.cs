@@ -15,9 +15,19 @@ namespace ATMBankAPI.Services
             return await _loanRepository.ApplyLoan(dto);
         }
 
+        public Task<LoanStatusResponseDto> ApproveLoan(UpdateLoanStatusDto dto)
+        {
+            return _loanRepository.ApproveLoan(dto);
+        }
+
         public Task<GetLoanDto> GetLoan(int loanId)
         {
            return _loanRepository.GetLoan(loanId);
+        }
+
+        public Task<LoanStatusResponseDto> RejectLoan(UpdateLoanStatusDto dto)
+        {
+            return _loanRepository.RejectLoan(dto);
         }
     }
 }

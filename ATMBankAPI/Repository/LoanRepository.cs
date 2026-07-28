@@ -54,6 +54,38 @@ namespace ATMBankAPI.Repository
             return dto2;
         }
 
+        public async Task<LoanStatusResponseDto> ApproveLoan(UpdateLoanStatusDto dto)
+        {
+            var loan = await _contex.Loans
+         .FirstOrDefaultAsync(l => l.LoanId == dto.LoanId);
+
+            if (loan == null)
+            {
+                throw new Exception("Loan not found.");
+            }
+
+            if (loan.LoanStatus == "Approved")
+            {
+                throw new Exception("Loan is already approved.");
+            }
+
+            if (loan.LoanStatus == "Rejected")
+            {
+                throw new Exception("Rejected loan cannot be approved.");
+            }
+
+            loan.LoanStatus = "Approved";
+
+            await _contex.SaveChangesAsync();
+
+            return new LoanStatusResponseDto
+            {
+                Message = "Loan approved successfully.",
+                LoainId = loan.LoanId,
+                LoanStatus = loan.LoanStatus!
+            };
+        }
+
         public async Task<GetLoanDto> GetLoan(int loanId)
         {
             var loan = await _contex.Loans.Include(e => e.Customer).Include(e => e.LoanTypeNavigation).FirstOrDefaultAsync(e => e.LoanId == loanId);
@@ -75,6 +107,32 @@ namespace ATMBankAPI.Repository
 
             };
             return londto;
+        }
+
+        public async Task<LoanStatusResponseDto> RejectLoan(UpdateLoanStatusDto dto)
+        {
+            var loan=await _contex.Loans.FirstOrDefaultAsync(e=>e.LoanId == dto.LoanId);
+            if(loan == null)
+            {
+                throw new Exception("Loan Not Found");
+
+            }
+            if(loan.LoanStatus== "Rejected")
+            {
+                throw new Exception("Loan Is Alerady Rejected");
+            }
+
+            loan.LoanStatus = "Rejected";
+            await _contex.SaveChangesAsync();
+
+            LoanStatusResponseDto resdto = new LoanStatusResponseDto
+            {
+                Message = "Loan Rejected Successfull",
+                LoainId = loan.LoanId,
+                LoanStatus = loan.LoanStatus,
+            };
+            return resdto;
+
         }
     }
 }

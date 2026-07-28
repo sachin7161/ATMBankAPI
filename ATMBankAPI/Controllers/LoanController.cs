@@ -17,17 +17,33 @@ namespace ATMBankAPI.Controllers
             this.loanService = loanService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult>ApplyLoan(ApplyLoanDto dto)
+        [HttpPost("ApplyLoan")]
+        public async Task<IActionResult> ApplyLoan(ApplyLoanDto dto)
         {
-            var result=await loanService.ApplyLoan(dto);
+            var result = await loanService.ApplyLoan(dto);
             return Ok(result);
 
         }
         [HttpGet("{LoanId}")]
-        public async Task<IActionResult>GetLoan(int LoanId)
+        public async Task<IActionResult> GetLoan(int LoanId)
         {
-            var result=await loanService.GetLoan(LoanId);
+            var result = await loanService.GetLoan(LoanId);
+            return Ok(result);
+        }
+
+
+
+        [HttpPost("ApprovedLoan")]
+        public async Task<IActionResult> ApprovedLoan(UpdateLoanStatusDto dto)
+        {
+            var result = await loanService.ApproveLoan(dto);
+            return Ok(result);
+        }
+
+        [HttpPost("RejectedLoan")]
+        public async Task<IActionResult> RejectedLoan(UpdateLoanStatusDto dto)
+        {
+            var result = await loanService.RejectLoan(dto);
             return Ok(result);
         }
     }
