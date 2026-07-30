@@ -25,6 +25,11 @@ namespace ATMBankAPI.Services
            return _loanRepository.GetLoan(loanId);
         }
 
+        public Task<List<LoanHistoryDto>> GetLoanHistory(int loanId)
+        {
+           return _loanRepository.GetLoanHistory(loanId);
+        }
+
         public Task<LoanStatusResponseDto> RejectLoan(UpdateLoanStatusDto dto)
         {
             return _loanRepository.RejectLoan(dto);

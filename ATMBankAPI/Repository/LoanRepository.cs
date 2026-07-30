@@ -109,6 +109,34 @@ namespace ATMBankAPI.Repository
             return londto;
         }
 
+        public async Task<List<LoanHistoryDto>> GetLoanHistory(int customerid)
+        {
+            var customerexist = await _contex.Customers.AnyAsync(c => c.CustomerId == customerid);
+
+            if (!customerexist)
+            {
+                throw new Exception("Customer not found.");
+            }
+
+            var loans = await _contex.Loans
+                .Where(l => l.CustomerId == customerid)
+                .Include(l => l.LoanTypeNavigation)
+                .OrderByDescending(l => l.ApplyDate)
+                .Select(l => new LoanHistoryDto
+                {
+                    LoanId = l.LoanId,
+                    LoanType = l.LoanTypeNavigation.LoneTypeName, 
+                    LoanAmount = l.LoanAmount ?? 0,
+                    Emi = l.Emi ?? 0,
+                    DurationMonth = l.DurationMonths ?? 0,
+                    LoanStatus = l.LoanStatus ?? "",
+                    ApplyDate = l.ApplyDate ?? DateTime.MinValue
+                })
+                .ToListAsync();
+
+            return loans;
+        }
+
         public async Task<LoanStatusResponseDto> RejectLoan(UpdateLoanStatusDto dto)
         {
             var loan=await _contex.Loans.FirstOrDefaultAsync(e=>e.LoanId == dto.LoanId);
