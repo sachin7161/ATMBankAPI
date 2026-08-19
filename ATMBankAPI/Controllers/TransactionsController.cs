@@ -51,5 +51,13 @@ namespace ATMBankAPI.Controllers
             var result=await _transactionService.FundTransfer(dto);
             return Ok(result);
         }
+
+        [HttpGet("GetAll/{accountId}")]
+        public async Task<IActionResult> GetAllTransactions(int accountId)
+        {
+            var result = await _transactionService.GetAllTransactions(accountId);
+
+            return Ok(result);
+        }
     }
 }

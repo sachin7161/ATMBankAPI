@@ -23,6 +23,11 @@ namespace ATMBankAPI.Services
            return await _repository.FundTransfer(dto);
         }
 
+        public async Task<List<TransactionResponseDto>> GetAllTransactions(int accountId)
+        {
+            return await _repository.GetAllTransactions(accountId);
+        }
+
         public async Task<BalanceInquiryDto> GetBalance(long accountnumber)
         {
             return await _repository.GetBalance(accountnumber);

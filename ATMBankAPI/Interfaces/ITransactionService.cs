@@ -9,5 +9,6 @@ namespace ATMBankAPI.Interfaces
         Task<BalanceInquiryDto> GetBalance(long accountnumber);
         Task<List<MiniStatementDto>> GetMiniStatement(long accountnumber);
         Task<FundTransferResponseDto> FundTransfer(FundTransferDto dto);
+        Task<List<TransactionResponseDto>> GetAllTransactions(int accountId);
     }
 }

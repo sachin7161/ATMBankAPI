@@ -138,6 +138,31 @@ namespace ATMBankAPI.Repository
           
         }
 
+        public async Task<List<TransactionResponseDto>> GetAllTransactions(int accountId)
+        {
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId);
+
+            if (account == null)
+            {
+                throw new Exception("Account not found.");
+            }
+
+            var transactions = await _context.Transactions.Where(t => t.AccountId == accountId).OrderByDescending(t => t.TransactionDate)
+                .Select(t => new TransactionResponseDto
+                {
+                    TransactionId = t.TransactionId,
+                    AccountNumber = account.AccountNumber,
+                    TransactionType = t.TransactionType ?? "",
+                    Amount = t.Amount ?? 0,
+                    Description = t.Description ?? "",
+                    ReferenceNumber = t.ReferenceNumber ?? "",
+                    TransactionDate = t.TransactionDate ?? DateTime.MinValue
+                })
+                .ToListAsync();
+
+            return transactions;
+        }
+
         public async Task<BalanceInquiryDto> GetBalance(long accountnumber)
         {
             var account = await _context.Accounts.Include(a => a.Customer).Include(a => a.Branch).FirstOrDefaultAsync(a => a.AccountNumber == accountnumber);
