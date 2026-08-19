@@ -60,5 +60,13 @@ namespace ATMBankAPI.Controllers
                 message = result
             });
         }
+
+        [HttpPost("Transfer")]
+        public async Task<IActionResult> TransferToBeneficiary(BeneficiaryTransferDto dto)
+        {
+            var result = await _beneficiaryService.TransferToBeneficiary(dto);
+
+            return Ok(result);
+        }
     }
 }

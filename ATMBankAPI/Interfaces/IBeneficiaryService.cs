@@ -12,5 +12,6 @@ namespace ATMBankAPI.Interfaces
         Task<BeneficiaryResponseDto> UpdateBeneficiary(int beneficiaryId,BeneficiaryDto dto);
 
         Task<string> DeleteBeneficiary(int beneficiaryId);
+        Task<BeneficiaryTransferResponseDto> TransferToBeneficiary(BeneficiaryTransferDto dto);
     }
 }

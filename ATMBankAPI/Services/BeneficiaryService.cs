@@ -30,6 +30,11 @@ namespace ATMBankAPI.Services
             return await _beneficiary.GetBeneficiary(beneficiaryId);
         }
 
+        public async Task<BeneficiaryTransferResponseDto> TransferToBeneficiary(BeneficiaryTransferDto dto)
+        {
+            return await _beneficiary.TransferToBeneficiary(dto);
+        }
+
         public async Task<BeneficiaryResponseDto> UpdateBeneficiary(int beneficiaryId, BeneficiaryDto dto)
         {
             return await _beneficiary.UpdateBeneficiary(beneficiaryId, dto);
