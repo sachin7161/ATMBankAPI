@@ -47,7 +47,7 @@ namespace ATMBankAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetLoanHistory/{accountId}")]
+        [HttpGet("GetLoanHistory/{customerId}")]
         public async Task<List<LoanHistoryDto>> GetLoanHistory(int accountId)
         {
             var result = await loanService.GetLoanHistory(accountId);

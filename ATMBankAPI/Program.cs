@@ -31,6 +31,8 @@ builder.Services.AddScoped<IAtmCardService, AtmCardService>();
 builder.Services.AddScoped<IAtmCardRepository , AtmCardRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<IBeneficiaryRepository, BeneficiaryRepository>();
+builder.Services.AddScoped<IBeneficiaryService, BeneficiaryService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
