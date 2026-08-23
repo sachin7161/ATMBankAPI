@@ -59,5 +59,12 @@ namespace ATMBankAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("get/{transactionId}")]
+        public async Task<IActionResult> GetTransaction(int transactionId)
+        {
+            var result=await _transactionService.GetTransaction(transactionId);
+            return Ok( result);
+        }
     }
 }

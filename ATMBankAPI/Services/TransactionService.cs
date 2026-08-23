@@ -38,6 +38,11 @@ namespace ATMBankAPI.Services
             return await _repository.GetMiniStatement(accountnumber);
         }
 
+        public async Task<TransactionResponseDto> GetTransaction(int transactionId)
+        {
+            return await _repository.GetTransaction(transactionId);
+        }
+
         public async Task<WithdrawResponseDto> Withdraw(WithdrawDto dto)
         {
             return await _repository.Withdraw(dto);

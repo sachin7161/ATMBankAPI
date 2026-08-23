@@ -209,6 +209,28 @@ namespace ATMBankAPI.Repository
             return transactions;
         }
 
+        public async Task<TransactionResponseDto> GetTransaction(int transactionId)
+        {
+            var transaction= await _context.Transactions.Include(t=>t.Account).FirstOrDefaultAsync(e=>e.TransactionId==transactionId);
+            if(transaction == null)
+            {
+                throw new Exception("Transaction Not Found");
+
+                
+            }
+           
+            return new TransactionResponseDto
+            {
+                TransactionId = transaction.TransactionId,
+                AccountNumber = transaction.Account?.AccountNumber ?? 0,
+                TransactionType = transaction.TransactionType ?? "",
+                Amount = transaction.Amount ?? 0,
+                Description = transaction.Description ?? "",
+                ReferenceNumber = transaction.ReferenceNumber ?? "",
+                TransactionDate = transaction.TransactionDate ?? DateTime.MinValue
+            };
+        }
+
         public async Task<WithdrawResponseDto> Withdraw(WithdrawDto dto)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.AccountNumber);
