@@ -11,5 +11,6 @@ namespace ATMBankAPI.Interfaces
         Task<FundTransferResponseDto> FundTransfer(FundTransferDto dto);
         Task<List<TransactionResponseDto>> GetAllTransactions(int accountId);
         Task<TransactionResponseDto> GetTransaction(int transactionId);
+        Task<List<TransactionResponseDto>> FilterTransactions(TransactionFilterDto dto);
     }
 }

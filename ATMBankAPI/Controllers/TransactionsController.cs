@@ -66,5 +66,12 @@ namespace ATMBankAPI.Controllers
             var result=await _transactionService.GetTransaction(transactionId);
             return Ok( result);
         }
+
+        [HttpPost("Filter")]
+        public async Task<IActionResult> FilterTransactions(TransactionFilterDto dto)
+        {
+            var result= await _transactionService.FilterTransactions(dto);
+            return Ok(result);
+        }
     }
 }

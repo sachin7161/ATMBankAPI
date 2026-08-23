@@ -1,5 +1,6 @@
 ﻿using ATMBankAPI.Dtos;
 using ATMBankAPI.Interfaces;
+using ATMBankAPI.Repository;
 
 namespace ATMBankAPI.Services
 {
@@ -16,6 +17,11 @@ namespace ATMBankAPI.Services
         public async Task<DepositResponseDto> Deposit(DepositDto dto)
         {
             return await _repository.Deposit(dto);
+        }
+
+        public async Task<List<TransactionResponseDto>> FilterTransactions(TransactionFilterDto dto)
+        {
+            return await _repository.FilterTransactions(dto);
         }
 
         public async Task<FundTransferResponseDto> FundTransfer(FundTransferDto dto)

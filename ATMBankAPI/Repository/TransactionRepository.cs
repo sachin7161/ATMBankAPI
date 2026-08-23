@@ -46,6 +46,59 @@ namespace ATMBankAPI.Repository
             };
         }
 
+        public async Task<List<TransactionResponseDto>> FilterTransactions(TransactionFilterDto dto)
+        {
+            var account = await _context.Accounts
+        .FirstOrDefaultAsync(a => a.AccountId == dto.AccountId);
+
+            if (account == null)
+            {
+                throw new Exception("Account not found.");
+            }
+
+            var query = _context.Transactions
+                .Where(t => t.AccountId == dto.AccountId)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(dto.TransactionType))
+            {
+                query = query.Where(t =>
+                    t.TransactionType == dto.TransactionType);
+            }
+
+            if (dto.FromDate.HasValue)
+            {
+                query = query.Where(t =>
+                    t.TransactionDate >= dto.FromDate.Value);
+            }
+
+            if (dto.ToDate.HasValue)
+            {
+                var toDate = dto.ToDate.Value.Date.AddDays(1);
+
+                query = query.Where(t =>
+                    t.TransactionDate < toDate);
+            }
+
+            var transactions = await query
+                .OrderByDescending(t => t.TransactionDate)
+                .Select(t => new TransactionResponseDto
+                {
+                    TransactionId = t.TransactionId,
+                    AccountNumber = account.AccountNumber,
+                    TransactionType = t.TransactionType ?? "",
+                    Amount = t.Amount ?? 0,
+                    Description = t.Description ?? "",
+                    ReferenceNumber = t.ReferenceNumber ?? "",
+                    TransactionDate = t.TransactionDate ?? DateTime.MinValue
+                })
+                .ToListAsync();
+
+            return transactions;
+
+
+        }
+
         public async Task<FundTransferResponseDto> FundTransfer(FundTransferDto dto)
         {
             using var dbTransaction = await _context.Database.BeginTransactionAsync();
