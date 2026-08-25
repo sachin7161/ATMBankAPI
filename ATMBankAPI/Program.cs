@@ -1,3 +1,4 @@
+using ATMBankAPI.Middleware;
 using ATMBankAPI.Interfaces;
 using ATMBankAPI.Models;
 using ATMBankAPI.Repository;
@@ -104,6 +105,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 
