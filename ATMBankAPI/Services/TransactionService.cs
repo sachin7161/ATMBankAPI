@@ -49,7 +49,23 @@ namespace ATMBankAPI.Services
 
         public async Task<FundTransferResponseDto> FundTransfer(FundTransferDto dto)
         {
-           return await _repository.FundTransfer(dto);
+            var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _repository.IsAccountOwnedByUser(dto.FromAccountNumber,userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
+
+            return await _repository.FundTransfer(dto);
         }
 
         public async Task<List<TransactionResponseDto>> GetAllTransactions(int accountId)
@@ -74,6 +90,25 @@ namespace ATMBankAPI.Services
 
         public async Task<WithdrawResponseDto> Withdraw(WithdrawDto dto)
         {
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+                .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _repository.IsAccountOwnedByUser(
+                dto.AccountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
+
             return await _repository.Withdraw(dto);
         }
     }

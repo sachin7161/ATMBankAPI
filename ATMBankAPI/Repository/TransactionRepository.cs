@@ -287,20 +287,24 @@ namespace ATMBankAPI.Repository
 
         public async Task<WithdrawResponseDto> Withdraw(WithdrawDto dto)
         {
-            var account = await _context.Accounts.FirstOrDefaultAsync(e => e.AccountNumber == dto.AccountNumber);
-            var card = await _context.AtmCards.FirstOrDefaultAsync(a => a.AccountId == account.AccountId);
-            if (card == null)
-            {
-                throw new Exception("Atm Card Not Found");
-            }
-            if (card.CardStatus != "Active")
-            {
-                throw new Exception("ATM Card is blocked. Transaction not allowed.");
-            }
+            var account = await _context.Accounts
+    .FirstOrDefaultAsync(e => e.AccountNumber == dto.AccountNumber);
 
             if (account == null)
             {
                 throw new Exception("Not found Account");
+            }
+
+            var card = await _context.AtmCards.FirstOrDefaultAsync(a => a.AccountId == account.AccountId);
+
+            if (card == null)
+            {
+                throw new Exception("Atm Card Not Found");
+            }
+
+            if (card.CardStatus != "Active")
+            {
+                throw new Exception("ATM Card is blocked. Transaction not allowed.");
             }
 
             decimal PreviousBalance=account.Balance ?? 0;
