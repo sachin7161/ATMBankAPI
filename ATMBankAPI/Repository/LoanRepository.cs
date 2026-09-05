@@ -162,5 +162,25 @@ namespace ATMBankAPI.Repository
             return resdto;
 
         }
+
+        public async Task<bool> IsCustomerOwnedByUser(int customerId, int userId)
+        {
+            var result = await _contex.Customers
+                .AnyAsync(c =>
+                    c.CustomerId == customerId &&
+                    c.Users.Any(u => u.UserId == userId));
+
+            return result;
+        }
+
+        public async Task<bool> IsLoanOwnedByUser(int loanId, int userId)
+        {
+            var result = await _contex.Loans
+                .AnyAsync(l =>
+                    l.LoanId == loanId &&
+                    l.Customer.Users.Any(u => u.UserId == userId));
+
+            return result;
+        }
     }
 }
