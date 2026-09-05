@@ -2,6 +2,7 @@
 using ATMBankAPI.Interfaces;
 using ATMBankAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 namespace ATMBankAPI.Repository
 {
     public class TransactionRepository : ITransactionRepository
@@ -148,7 +149,7 @@ namespace ATMBankAPI.Repository
 
                 Transaction senderTransaction = new Transaction
                 {
-                 AccountId = sender.AccountId,
+                 AccountId = receiver.AccountId,
                  TransactionType="Fund Transfer Debit",
                  Amount=dto.Amount,
                  Description=dto.Description,

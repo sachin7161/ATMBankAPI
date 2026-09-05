@@ -4,12 +4,12 @@ namespace ATMBankAPI.Dtos
 {
     public class DepositDto
     {
-        [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "Account number must be greater than 0.")]
         public long AccountNumber { get; set; }
-        [Required]
-        [Range(1, 10000000)]
-        public decimal Amount { get; set; }
-        public string Description { get; set; }
 
+        [Range(0.01, 10000000, ErrorMessage = "Amount must be greater than 0.")]
+        public decimal Amount { get; set; }
+
+        public string? Description { get; set; }
     }
 }
