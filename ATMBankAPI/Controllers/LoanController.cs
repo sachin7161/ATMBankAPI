@@ -34,6 +34,7 @@ namespace ATMBankAPI.Controllers
 
 
         [HttpPost("ApprovedLoan")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ApprovedLoan(UpdateLoanStatusDto dto)
         {
             var result = await loanService.ApproveLoan(dto);
@@ -41,6 +42,7 @@ namespace ATMBankAPI.Controllers
         }
 
         [HttpPost("RejectedLoan")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RejectedLoan(UpdateLoanStatusDto dto)
         {
             var result = await loanService.RejectLoan(dto);

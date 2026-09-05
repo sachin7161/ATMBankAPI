@@ -29,6 +29,7 @@ namespace ATMBankAPI.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllAuditLogs()
         {
             var result = await _auditLogService.GetAllAuditLogs();
@@ -37,6 +38,7 @@ namespace ATMBankAPI.Controllers
         }
 
         [HttpGet("Get/{auditId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAuditLogById(long auditId)
         {
             var result = await _auditLogService.GetAuditLogById(auditId);
