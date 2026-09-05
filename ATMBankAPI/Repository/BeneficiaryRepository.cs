@@ -282,5 +282,25 @@ namespace ATMBankAPI.Repository
                 NickName = beneficiary.NickName
             };
         }
+
+        public async Task<bool> IsAccountOwnedByUser(int accountId, int userId)
+        {
+            var result = await _context.Accounts
+                .AnyAsync(a =>
+                    a.AccountId == accountId &&
+                    a.Customer.Users.Any(u => u.UserId == userId));
+
+            return result;
+        }
+
+        public async Task<bool> IsBeneficiaryOwnedByUser(int beneficiaryId, int userId)
+        {
+            var result = await _context.Beneficiaries
+                .AnyAsync(b =>
+                    b.BeneficiaryId == beneficiaryId &&
+                    b.Account.Customer.Users.Any(u => u.UserId == userId));
+
+            return result;
+        }
     }
 }
