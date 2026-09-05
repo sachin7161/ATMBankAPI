@@ -7,15 +7,38 @@ namespace ATMBankAPI.Services
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository _repository;
-        public TransactionService(ITransactionRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public TransactionService(
+            ITransactionRepository repository,
+            IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-       
 
         public async Task<DepositResponseDto> Deposit(DepositDto dto)
         {
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+                .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _repository.IsAccountOwnedByUser(
+                dto.AccountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
+
             return await _repository.Deposit(dto);
         }
 

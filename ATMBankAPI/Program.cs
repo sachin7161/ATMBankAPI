@@ -29,6 +29,7 @@ builder.Services.AddDbContext<ATMBankDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyCon"));
 });
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder .Services.AddScoped<IUserRepository, UserRepository>();

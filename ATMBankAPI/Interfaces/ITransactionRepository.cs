@@ -12,5 +12,6 @@ namespace ATMBankAPI.Interfaces
         Task<List<TransactionResponseDto>> GetAllTransactions(int accountId);
         Task<TransactionResponseDto> GetTransaction(int transactionId);
         Task<List<TransactionResponseDto>> FilterTransactions(TransactionFilterDto dto);
+        Task<bool> IsAccountOwnedByUser(long accountNumber, int userId);
     }
 }

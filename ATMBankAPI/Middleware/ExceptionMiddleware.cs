@@ -32,7 +32,12 @@ namespace ATMBankAPI.Middleware
 
             int statusCode = (int)HttpStatusCode.InternalServerError;
 
-            if (exception.Message.Contains("Not Found",
+            if (exception.Message.Contains("not authorized",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                statusCode = (int)HttpStatusCode.Forbidden;
+            }
+            else if (exception.Message.Contains("Not Found",
                 StringComparison.OrdinalIgnoreCase))
             {
                 statusCode = (int)HttpStatusCode.NotFound;
