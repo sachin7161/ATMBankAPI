@@ -9,5 +9,6 @@ namespace ATMBankAPI.Interfaces
         Task<ChangePinResponseDto> ChangePin(ChangePinDto dto);
         Task<CardResponseDto> BlockCard(CardStatusDto dto);
         Task<CardResponseDto> UnBlock(CardStatusDto dto);
+        Task<bool> IsAccountOwnedByUser(long accountNumber, int userId);
     }
 }

@@ -163,5 +163,14 @@ namespace ATMBankAPI.Repository
             };
             return res;
         }
+
+        public async Task<bool> IsAccountOwnedByUser(long accountNumber, int userId)
+        {
+            var result = await _context.Accounts.AnyAsync(a =>
+                    a.AccountNumber == accountNumber &&
+                    a.Customer.Users.Any(u => u.UserId == userId));
+
+            return result;
+        }
     }
 }
