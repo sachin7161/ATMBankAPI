@@ -1,6 +1,7 @@
 ﻿using ATMBankAPI.Dtos;
 using ATMBankAPI.Interfaces;
 using ATMBankAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace ATMBankAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AtmCardController : ControllerBase
