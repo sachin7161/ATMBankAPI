@@ -13,14 +13,50 @@ namespace ATMBankAPI.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<CardResponseDto> CardBlock(CardStatusDto dto)
+        public async Task<CardResponseDto> CardBlock(CardStatusDto dto)
         {
-            return _atmcardrepository.BlockCard(dto);
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+       .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _atmcardrepository.IsAccountOwnedByUser(
+                dto.AccountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
+            return await _atmcardrepository.BlockCard(dto);
         }
 
-        public Task<CardResponseDto> CardUnblock(CardStatusDto dto)
+        public async Task<CardResponseDto> CardUnblock(CardStatusDto dto)
         {
-            return _atmcardrepository.UnBlock(dto);
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+        .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _atmcardrepository.IsAccountOwnedByUser(
+                dto.AccountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
+            return await _atmcardrepository.UnBlock(dto);
         }
 
         public async Task<ChangePinResponseDto> ChangePin(ChangePinDto dto)
@@ -49,12 +85,49 @@ namespace ATMBankAPI.Services
 
         public async Task<AtmCardResponseDto> CreateAtmCard(AtmCardDto atmCardDto)
         {
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+       .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _atmcardrepository.IsAccountOwnedByUser(
+                atmCardDto.AccountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
             return  await _atmcardrepository.CreateAtmCard(atmCardDto);
         }
 
         public async Task<GetAtmCardDto> GetAtmCard(long accountNumber)
         {
-           return await _atmcardrepository.GetAtmCard(accountNumber);
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+        .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _atmcardrepository.IsAccountOwnedByUser(
+                accountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception("You are not authorized to access this account.");
+            }
+
+            return await _atmcardrepository.GetAtmCard(accountNumber);
         }
     }
 }
