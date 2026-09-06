@@ -51,6 +51,21 @@ namespace ATMBankAPI.Middleware
             {
                 statusCode = (int)HttpStatusCode.BadRequest;
             }
+            else if (exception.Message.Contains("Insufficent",
+    StringComparison.OrdinalIgnoreCase) ||
+         exception.Message.Contains("cannot",
+         StringComparison.OrdinalIgnoreCase) ||
+         exception.Message.Contains("blocked",
+         StringComparison.OrdinalIgnoreCase) ||
+         exception.Message.Contains("Invalid Refresh Token",
+         StringComparison.OrdinalIgnoreCase) ||
+         exception.Message.Contains("expired",
+         StringComparison.OrdinalIgnoreCase) ||
+         exception.Message.Contains("revoked",
+         StringComparison.OrdinalIgnoreCase))
+            {
+                statusCode = (int)HttpStatusCode.BadRequest;
+            }
 
             context.Response.StatusCode = statusCode;
 
