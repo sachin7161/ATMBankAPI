@@ -5,5 +5,6 @@ namespace ATMBankAPI.Interfaces
     public interface IAccountService
     {
         Task<AccountResponseDto> CreateAccount(AccountDto dto);
+        Task<AccountResponseDto> GetAccountByNumber(long accountNumber);
     }
 }

@@ -61,5 +61,33 @@ namespace ATMBankAPI.Repository
 
             };
         }
+
+        public async Task<AccountResponseDto> GetAccountByNumber(long accountNumber)
+        {
+            var account = await _context.Accounts
+                .Include(a => a.Customer)
+                .FirstOrDefaultAsync(a => a.AccountNumber == accountNumber);
+
+            if (account == null)
+            {
+                throw new Exception("Account Not Found");
+            }
+
+            return new AccountResponseDto
+            {
+                AccountId = account.AccountId,
+                AccountNumber = account.AccountNumber,
+                CustomerName = account.Customer.FirstName + " " + account.Customer.LastName,
+                AccountType = account.AccountType,
+                Balance = account.Balance ?? 0,
+                Status = account.Status,
+                OpenDate = account.OpenDate
+            };
+        }
+
+        public async Task<bool> IsAccountOwnedByUser(long accountNumber,int userId)
+        {
+            return await _context.Accounts.AnyAsync(a =>a.AccountNumber == accountNumber &&a.Customer.Users.Any(u => u.UserId == userId));
+        }
     }
 }
