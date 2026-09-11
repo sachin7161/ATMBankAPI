@@ -47,5 +47,36 @@ namespace ATMBankAPI.Services
 
             return await _accountreposittory.GetAccountByNumber(accountNumber);
         }
+
+
+        public async Task<AccountDashboardDto> GetAccountDashboard(long accountNumber)
+        {
+            if (accountNumber <= 0)
+            {
+                throw new Exception("Invalid Account Number");
+            }
+
+            var userIdClaim = _httpContextAccessor.HttpContext?.User
+                .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                throw new Exception("User not authenticated");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            bool isOwned = await _accountreposittory.IsAccountOwnedByUser(
+                accountNumber,
+                userId);
+
+            if (!isOwned)
+            {
+                throw new Exception(
+                    "You are not authorized to access this account.");
+            }
+
+            return await _accountreposittory.GetAccountDashboard(accountNumber);
+        }
     }
 }

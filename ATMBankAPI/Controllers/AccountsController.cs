@@ -33,5 +33,13 @@ namespace ATMBankAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("Dashboard/{accountNumber}")]
+        public async Task<IActionResult> GetAccountDashboard(long accountNumber)
+        {
+            var result = await _accountserrvice.GetAccountDashboard(accountNumber);
+
+            return Ok(result);
+        }
     }
 }

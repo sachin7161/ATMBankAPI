@@ -9,5 +9,6 @@ namespace ATMBankAPI.Interfaces
         Task<AccountResponseDto> GetAccountByNumber(long accountNumber);
 
         Task<bool> IsAccountOwnedByUser(long accountNumber, int userId);
+        Task<AccountDashboardDto> GetAccountDashboard(long accountNumber);
     }
 }
