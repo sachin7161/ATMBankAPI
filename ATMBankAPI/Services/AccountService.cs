@@ -78,5 +78,10 @@ namespace ATMBankAPI.Services
 
             return await _accountreposittory.GetAccountDashboard(accountNumber);
         }
+
+        public async Task<long> GetAccountNumberByUserId(int userId)
+        {
+            return await _accountreposittory.GetAccountNumberByUserId(userId);
+        }
     }
 }

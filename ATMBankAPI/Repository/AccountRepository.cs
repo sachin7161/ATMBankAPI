@@ -174,5 +174,21 @@ namespace ATMBankAPI.Repository
 
             return dashboard;
         }
+
+        public async Task<long> GetAccountNumberByUserId(int userId)
+        {
+            var account = await _context.Accounts
+                .Include(a => a.Customer)
+                .ThenInclude(c => c.Users)
+                .FirstOrDefaultAsync(a =>
+                    a.Customer.Users.Any(u => u.UserId == userId));
+
+            if (account == null)
+            {
+                throw new Exception("Account Not Found");
+            }
+
+            return account.AccountNumber;
+        }
     }
 }
