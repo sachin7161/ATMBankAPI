@@ -149,8 +149,8 @@ namespace ATMBankAPI.Repository
 
                 Transaction senderTransaction = new Transaction
                 {
-                 AccountId = receiver.AccountId,
-                 TransactionType="Fund Transfer Debit",
+                    AccountId = sender.AccountId,
+                    TransactionType ="Fund Transfer Debit",
                  Amount=dto.Amount,
                  Description=dto.Description,
                  ReferenceNumber=referenceNumber,
@@ -160,7 +160,7 @@ namespace ATMBankAPI.Repository
 
                 Transaction reciverTransaction = new Transaction
                 {
-                    AccountId = sender.AccountId,
+                    AccountId = receiver.AccountId,
                     TransactionType = "Fund Trnsafer  Credit",
                     Amount = dto.Amount,
                     Description = dto.Description,
