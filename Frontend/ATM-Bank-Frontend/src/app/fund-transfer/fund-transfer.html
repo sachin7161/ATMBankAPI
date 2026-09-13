@@ -1,0 +1,103 @@
+<div class="transfer-page">
+
+  <div class="transfer-card">
+
+    <div class="transfer-header">
+      <div class="transfer-icon">💸</div>
+
+      <div>
+        <h2>Fund Transfer</h2>
+        <p>Transfer money securely to another account.</p>
+      </div>
+      <button
+  class="back-button"
+  (click)="goToDashboard()">
+
+  ← Back to Dashboard
+
+</button>
+    </div>
+
+
+    <div class="form-group">
+
+      <label>From Account</label>
+
+      <input
+        type="text"
+        [(ngModel)]="fromAccount"
+        placeholder="Enter your account number"
+      />
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>To Account</label>
+
+      <input
+        type="text"
+        [(ngModel)]="toAccount"
+        placeholder="Enter beneficiary account number"
+      />
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Amount</label>
+
+      <input
+        type="number"
+        [(ngModel)]="amount"
+        placeholder="Enter amount"
+      />
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Description</label>
+
+      <input
+        type="text"
+        [(ngModel)]="description"
+        placeholder="Enter transfer description"
+      />
+
+    </div>
+    <!-- Success Message -->
+<div
+  class="success-message"
+  *ngIf="message">
+
+  {{ message }}
+
+</div>
+
+<!-- Error Message -->
+<div
+  class="error-message"
+  *ngIf="errorMessage">
+
+  {{ errorMessage }}
+
+</div>
+
+    <button
+  class="transfer-button"
+  (click)="transfer()"
+  [disabled]="isLoading">
+
+  {{ isLoading ? 'Processing...' : 'Transfer Money' }}
+
+  <span *ngIf="!isLoading">→</span>
+
+</button>
+
+  </div>
+
+</div>

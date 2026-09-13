@@ -1,0 +1,439 @@
+* {
+  box-sizing: border-box;
+}
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #172b4d;
+}
+
+/* HEADER */
+
+.dashboard-header {
+  height: 76px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5eaf1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 42px;
+
+  box-shadow: 0 2px 12px rgba(30, 70, 120, 0.06);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 45px;
+  height: 45px;
+
+  border-radius: 12px;
+  background: #2879ed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.brand span {
+  font-size: 12px;
+  color: #718096;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.user-info strong {
+  font-size: 14px;
+}
+
+.user-info span {
+  font-size: 12px;
+  color: #2879ed;
+  font-weight: 600;
+}
+
+.logout-button {
+  border: none;
+  background: #eef5ff;
+  color: #1769e0;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #dfeeff;
+}
+
+/* MAIN */
+
+.dashboard-content {
+  max-width: 1350px;
+  margin: auto;
+  padding: 32px 42px;
+}
+
+.welcome-section {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-section h2 {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.welcome-section p {
+  margin: 0;
+  color: #718096;
+}
+
+/* SUMMARY CARDS */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid #e7edf5;
+  border-radius: 15px;
+
+  padding: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  box-shadow: 0 5px 20px rgba(30, 70, 120, 0.05);
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 12px;
+
+  background: #eaf3ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+.summary-card span {
+  color: #718096;
+  font-size: 13px;
+}
+
+.summary-card h3 {
+  margin: 6px 0 0;
+  font-size: 20px;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #2879ed, #4d94ef);
+  color: white;
+}
+
+.balance-card span {
+  color: #e8f1ff;
+}
+
+.balance-card .card-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* GRID */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.dashboard-card {
+  background: white;
+
+  border: 1px solid #e7edf5;
+  border-radius: 15px;
+
+  padding: 24px;
+
+  box-shadow: 0 5px 20px rgba(30, 70, 120, 0.05);
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 22px;
+}
+
+.section-title h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* DETAILS */
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.details-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.details-grid span {
+  color: #8a96a8;
+  font-size: 12px;
+}
+
+.details-grid strong {
+  font-size: 14px;
+  color: #27364d;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ATM CARD */
+
+.atm-card {
+  min-height: 190px;
+
+  padding: 23px;
+
+  border-radius: 17px;
+
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #173b78,
+    #2879ed
+  );
+
+  box-shadow: 0 12px 25px rgba(40, 121, 237, 0.25);
+}
+
+.atm-card-top {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.card-number {
+  font-size: 21px;
+  letter-spacing: 3px;
+  margin: 30px 0 22px;
+}
+
+.atm-card-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.atm-card-bottom div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.atm-card-bottom small {
+  font-size: 9px;
+  opacity: 0.75;
+}
+
+.atm-card-bottom strong {
+  font-size: 12px;
+}
+
+/* TRANSACTIONS */
+
+.view-button {
+  border: none;
+  background: transparent;
+
+  color: #1769e0;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #edf1f6;
+
+  gap: 13px;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-icon {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #eaf3ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #2879ed;
+
+  font-size: 20px;
+}
+
+.transaction-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  flex: 1;
+}
+
+.transaction-info strong {
+  font-size: 14px;
+}
+
+.transaction-info span {
+  font-size: 12px;
+  color: #8994a5;
+}
+
+.credit {
+  color: #159447;
+  font-size: 14px;
+}
+
+.debit {
+  color: #d33a3a;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+
+  .dashboard-header {
+    padding: 0 18px;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .dashboard-content {
+    padding: 25px 18px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .card-number {
+    font-size: 16px;
+  }
+}
+
+.fund-transfer-button {
+  margin-top: 20px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.2s ease;
+}
+
+.fund-transfer-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.fund-transfer-button span {
+  font-size: 18px;
+}

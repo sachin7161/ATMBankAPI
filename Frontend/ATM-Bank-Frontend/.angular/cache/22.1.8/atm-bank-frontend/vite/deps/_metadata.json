@@ -1,0 +1,74 @@
+{
+  "hash": "21715a77",
+  "configHash": "4b50f3d7",
+  "lockfileHash": "78e2b969",
+  "browserHash": "64ad8442",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "505e8f27",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "f7d61294",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "85d866ea",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "606b18f2",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "1f600d03",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "d8d82520",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "_xhr-chunk-StjTrfSZ": {
+      "file": "_xhr-chunk-StjTrfSZ.js",
+      "isDynamicEntry": false
+    },
+    "common-DS0YVWd7": {
+      "file": "common-DS0YVWd7.js",
+      "isDynamicEntry": false
+    },
+    "core-CK5_Em9Y": {
+      "file": "core-CK5_Em9Y.js",
+      "isDynamicEntry": false
+    },
+    "createObject-tZtuooBD": {
+      "file": "createObject-tZtuooBD.js",
+      "isDynamicEntry": false
+    },
+    "from-Bt_lUhqR": {
+      "file": "from-Bt_lUhqR.js",
+      "isDynamicEntry": false
+    },
+    "http-DO6WTcHH": {
+      "file": "http-DO6WTcHH.js",
+      "isDynamicEntry": false
+    },
+    "platform-browser-DPFFW_u7": {
+      "file": "platform-browser-DPFFW_u7.js",
+      "isDynamicEntry": false
+    }
+  }
+}

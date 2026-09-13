@@ -1,0 +1,343 @@
+<div class="dashboard-page">
+
+  <!-- Header -->
+  <header class="dashboard-header">
+
+    <div class="brand">
+      <div class="brand-icon">🏦</div>
+
+      <div>
+        <h1>ATM Bank</h1>
+        <span>Digital Banking</span>
+      </div>
+    </div>
+
+    <div class="user-section">
+      <div class="user-info">
+        <strong>Welcome, {{ userName }}</strong>
+        <span>{{ role }}</span>
+      </div>
+
+      <button class="logout-button" (click)="logout()">
+        Logout
+      </button>
+    </div>
+
+  </header>
+
+
+  <!-- Main Content -->
+  <main class="dashboard-content">
+
+    <div class="welcome-section">
+  <div>
+    <h2>Dashboard</h2>
+    <p>Manage your banking account easily and securely.</p>
+  </div>
+
+  <button
+    class="fund-transfer-button"
+    (click)="goToFundTransfer()">
+
+    💸 Fund Transfer
+    <span>→</span>
+
+  </button>
+</div>
+
+    <!-- Account Cards -->
+    <div class="summary-grid">
+
+      <div class="summary-card balance-card">
+        <div class="card-icon">💰</div>
+
+        <div>
+          <span>Available Balance</span>
+          <h3>₹ {{ balance | number:'1.2-2' }}</h3>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="card-icon">🏦</div>
+
+        <div>
+          <span>Account Number</span>
+          <h3>{{ accountNumber }}</h3>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="card-icon">💳</div>
+
+        <div>
+          <span>Account Type</span>
+          <h3>{{ accountType }}</h3>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="card-icon">📊</div>
+
+        <div>
+          <span>Account Status</span>
+          <h3>{{ accountStatus }}</h3>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Account & Customer -->
+    <div class="dashboard-grid">
+
+      <!-- Account Details -->
+      <section class="dashboard-card">
+
+        <div class="section-title">
+          <h3>Account Details</h3>
+        </div>
+
+        <div class="details-grid">
+
+          <div>
+            <span>Customer Name</span>
+            <strong>{{ customerName }}</strong>
+          </div>
+
+          <div>
+            <span>Account Number</span>
+            <strong>{{ accountNumber }}</strong>
+          </div>
+
+          <div>
+            <span>Account Type</span>
+            <strong>{{ accountType }}</strong>
+          </div>
+
+          <div>
+            <span>Opening Date</span>
+            <strong>{{ openDate }}</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Customer Details -->
+      <section class="dashboard-card">
+
+        <div class="section-title">
+          <h3>Customer Information</h3>
+        </div>
+
+        <div class="details-grid">
+
+          <div>
+            <span>Mobile Number</span>
+            <strong>{{ mobileNumber }}</strong>
+          </div>
+
+          <div>
+            <span>Email</span>
+            <strong>{{ email }}</strong>
+          </div>
+
+          <div class="full-width">
+            <span>Address</span>
+            <strong>{{ address }}</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- ATM Card & Transactions -->
+    <div class="dashboard-grid">
+
+      <!-- ATM Card -->
+      <section class="dashboard-card">
+
+        <div class="section-title">
+          <h3>ATM Card</h3>
+        </div>
+
+        <div class="atm-card">
+
+          <div class="atm-card-top">
+            <span>ATM BANK</span>
+            <span>💳</span>
+          </div>
+
+          <div class="card-number">
+            {{ cardNumber }}
+          </div>
+
+          <div class="atm-card-bottom">
+
+            <div>
+              <small>EXPIRY</small>
+              <strong>{{ cardExpiry }}</strong>
+            </div>
+
+            <div>
+              <small>DAILY LIMIT</small>
+              <strong>₹ {{ dailyLimit }}</strong>
+            </div>
+
+            <div>
+              <small>STATUS</small>
+              <strong>{{ cardStatus }}</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Recent Transactions -->
+      <section class="dashboard-card transactions-card">
+
+        <div class="section-title">
+          <h3>Recent Transactions</h3>
+
+          <button class="view-button">
+            View All
+          </button>
+        </div>
+
+       <div class="transaction-list">
+
+  <div
+    class="transaction-item"
+    *ngFor="let transaction of recentTransactions">
+
+   <div class="transaction-icon">
+  {{
+    transaction.transactionType === 'Deposit' ||
+    transaction.transactionType.toLowerCase().includes('credit')
+      ? '↓'
+      : '↑'
+  }}
+</div>
+
+    <div class="transaction-info">
+
+      <strong>
+        {{ transaction.transactionType }}
+      </strong>
+
+      <span>
+        {{ transaction.description }}
+      </span>
+
+      <small>
+        {{ transaction.transactionDate | date:'dd MMM yyyy, hh:mm a' }}
+      </small>
+
+    </div>
+
+   <strong
+  [class.credit]="
+    transaction.transactionType === 'Deposit' ||
+    transaction.transactionType.toLowerCase().includes('credit')
+  "
+  [class.debit]="
+    transaction.transactionType !== 'Deposit' &&
+    !transaction.transactionType.toLowerCase().includes('credit')
+  ">
+
+  {{
+    transaction.transactionType === 'Deposit' ||
+    transaction.transactionType.toLowerCase().includes('credit')
+      ? '+'
+      : '-'
+  }}
+
+  ₹ {{ transaction.amount | number:'1.2-2' }}
+
+</strong> 
+
+  </div>
+
+  <div
+    class="no-transactions"
+    *ngIf="recentTransactions.length === 0">
+
+    No transactions found.
+
+  </div>
+
+</div>
+      </section>
+
+    </div>
+      <!-- Loans -->
+<section class="dashboard-card loans-card">
+
+  <div class="section-title">
+    <h3>My Loans</h3>
+  </div>
+
+  <div class="loan-list">
+
+    <div
+      class="loan-item"
+      *ngFor="let loan of loans">
+
+      <div class="loan-icon">
+        🏦
+      </div>
+
+      <div class="loan-info">
+
+        <strong>
+          {{ loan.loanType }}
+        </strong>
+
+        <span>
+          Loan Amount: ₹ {{ loan.loanAmount | number:'1.2-2' }}
+        </span>
+
+        <span>
+          EMI: ₹ {{ loan.emi | number:'1.2-2' }}
+        </span>
+
+      </div>
+
+      <div class="loan-status">
+
+        <strong>
+          {{ loan.loanStatus }}
+        </strong>
+
+        <small>
+          {{ loan.durationMonth }} Months
+        </small>
+
+      </div>
+
+    </div>
+
+    <div
+      class="no-loans"
+      *ngIf="loans.length === 0">
+
+      No loans found.
+
+    </div>
+
+  </div>
+
+</section>
+  </main>
+
+</div>

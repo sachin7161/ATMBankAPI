@@ -1,0 +1,140 @@
+<div class="login-page">
+
+  <!-- Left Section -->
+  <div class="left-section">
+    <div class="brand-content">
+      <h1>ATM Bank</h1>
+
+      <h2>Secure Banking for a Better Tomorrow</h2>
+
+      <div class="line"></div>
+
+      <p>
+        Manage your account, check balance,
+        transfer money and more — anytime,
+        anywhere.
+      </p>
+    </div>
+  </div>
+
+  <!-- Login Section -->
+  <div class="login-container">
+
+    <div class="login-card">
+
+      <div class="bank-icon">
+        🏦
+      </div>
+
+      <h1>ATM Bank</h1>
+
+      <p class="subtitle">
+        Login to access your account
+      </p>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label>Username</label>
+
+        <div class="input-box">
+          <span class="input-icon">👤</span>
+
+          <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Enter your username">
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label>Password</label>
+
+        <div class="input-box">
+          <span class="input-icon">🔒</span>
+
+          <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password">
+
+          <span class="eye-icon">👁</span>
+        </div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="forgot-password">
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <!-- Login Button -->
+      <button class="login-button" (click)="login()">
+        Login
+        <span>→</span>
+      </button>
+
+      <!-- OR -->
+      <div class="or-section">
+        <div></div>
+        <span>OR</span>
+        <div></div>
+      </div>
+
+      <!-- New User -->
+      <button class="contact-button">
+        New User?
+        <span>Contact Bank</span>
+      </button>
+
+    </div>
+
+    <p class="copyright">
+      © 2026 ATM Bank. All rights reserved.
+    </p>
+
+  </div>
+
+  <!-- Right Features -->
+  <div class="right-section">
+
+    <div class="feature">
+      <div class="feature-icon">🛡️</div>
+
+      <div>
+        <h3>Safe & Secure</h3>
+        <p>Your security is our priority</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+
+      <div>
+        <h3>Fast Transactions</h3>
+        <p>Quick and reliable service</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">📱</div>
+
+      <div>
+        <h3>Anywhere Access</h3>
+        <p>Bank on the go</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🎧</div>
+
+      <div>
+        <h3>24/7 Support</h3>
+        <p>We are always here for you</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

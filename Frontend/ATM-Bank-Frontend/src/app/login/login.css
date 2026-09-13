@@ -1,0 +1,419 @@
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}* {
+  box-sizing: border-box;
+}
+
+.login-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #eef6ff, #ffffff);
+}
+
+/* LEFT BLUE SECTION */
+
+.left-section {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48%;
+  height: 100%;
+
+  background: linear-gradient(145deg, #2879ed, #4d94ef);
+
+  border-radius: 0 0 65% 0;
+
+  display: flex;
+  align-items: center;
+  padding-left: 4%;
+}
+
+.brand-content {
+  width: 420px;
+  color: white;
+}
+
+.brand-content h1 {
+  font-size: 48px;
+  margin: 0 0 15px;
+  font-weight: 700;
+}
+
+.brand-content h2 {
+  font-size: 21px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.line {
+  width: 75px;
+  height: 3px;
+  background: white;
+  margin: 30px 0;
+  border-radius: 10px;
+}
+
+.brand-content p {
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 390px;
+  margin: 0;
+}
+
+/* LOGIN CONTAINER */
+
+.login-container {
+  position: relative;
+  z-index: 5;
+  margin-left: 15%;
+}
+
+.login-card {
+  width: 520px;
+  padding: 30px 42px;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 20px 55px rgba(40, 90, 160, 0.18);
+
+  border: 1px solid #e5ebf3;
+}
+
+/* BANK ICON */
+
+.bank-icon {
+  width: 75px;
+  height: 75px;
+
+  margin: 0 auto 15px;
+
+  border-radius: 50%;
+
+  background: #eaf3ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 38px;
+}
+
+.login-card h1 {
+  text-align: center;
+  color: #172b4d;
+  font-size: 34px;
+  margin: 5px 0 8px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #64748b;
+  font-size: 17px;
+  margin-bottom: 32px;
+}
+
+/* FORM */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172b4d;
+  margin-bottom: 8px;
+}
+
+.input-box {
+  height: 54px;
+
+  border: 1px solid #d5dce8;
+
+  border-radius: 9px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 15px;
+
+  background: white;
+
+  transition: 0.2s;
+}
+
+.input-box:focus-within {
+  border-color: #2879ed;
+
+  box-shadow:
+    0 0 0 3px rgba(40, 121, 237, 0.1);
+}
+
+.input-icon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.input-box input {
+  border: none;
+  outline: none;
+
+  width: 100%;
+
+  font-size: 16px;
+
+  color: #172b4d;
+}
+
+.input-box input::placeholder {
+  color: #8994a5;
+}
+
+.eye-icon {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* FORGOT PASSWORD */
+
+.forgot-password {
+  text-align: right;
+  margin: 8px 0 20px;
+}
+
+.forgot-password a {
+  color: #1769e0;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+/* LOGIN BUTTON */
+
+.login-button {
+  width: 100%;
+  height: 54px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: linear-gradient(
+    90deg,
+    #2879ed,
+    #347fea
+  );
+
+  color: white;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(40, 121, 237, 0.25);
+
+  transition: 0.2s;
+}
+
+.login-button span {
+  font-size: 23px;
+  margin-left: 8px;
+}
+
+.login-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 11px 22px rgba(40, 121, 237, 0.3);
+}
+
+/* OR SECTION */
+
+.or-section {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin: 28px 0;
+
+  color: #718096;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.or-section div {
+  height: 1px;
+
+  background: #dfe5ed;
+
+  flex: 1;
+}
+
+/* CONTACT BANK */
+
+.contact-button {
+  width: 100%;
+  height: 52px;
+
+  border: 1px solid #d5dce8;
+
+  border-radius: 9px;
+
+  background: #f8fbff;
+
+  color: #344054;
+
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.contact-button span {
+  color: #1769e0;
+
+  font-weight: 600;
+
+  text-decoration: underline;
+}
+
+.contact-button:hover {
+  background: #eef6ff;
+}
+
+/* COPYRIGHT */
+
+.copyright {
+  text-align: center;
+
+  color: #65748b;
+
+  font-size: 14px;
+
+  margin-top: 28px;
+}
+
+/* RIGHT FEATURES */
+
+.right-section {
+  position: absolute;
+
+  right: 4%;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 270px;
+
+  z-index: 2;
+}
+
+.feature {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+.feature-icon {
+  width: 62px;
+  height: 62px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #e5f0ff;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.feature h3 {
+  margin: 0 0 6px;
+
+  color: #172b4d;
+
+  font-size: 16px;
+}
+
+.feature p {
+  margin: 0;
+
+  color: #718096;
+
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+
+  .left-section {
+    width: 35%;
+  }
+
+  .brand-content {
+    display: none;
+  }
+
+  .login-container {
+    margin-left: 0;
+  }
+
+  .right-section {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .login-card {
+    width: calc(100vw - 30px);
+
+    padding: 30px 25px;
+  }
+
+  .login-card h1 {
+    font-size: 28px;
+  }
+}
